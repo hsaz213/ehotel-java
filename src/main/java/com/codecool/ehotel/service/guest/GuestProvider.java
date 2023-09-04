@@ -1,10 +1,13 @@
 package com.codecool.ehotel.service.guest;
 
 import com.codecool.ehotel.model.Guest;
+import com.codecool.ehotel.model.GuestType;
 
 import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
+
+import static java.time.temporal.ChronoUnit.DAYS;
 
 public class GuestProvider implements GuestService{
 
@@ -59,9 +62,20 @@ public class GuestProvider implements GuestService{
         return firstName + " " + lastName;
     }
 
+    private int getRandomNumberOfDays(){
+        Random random = new Random();
+        int min = 1;
+        int max = 7;
+
+        return random.nextInt(max + min) +min;
+    }
+
     @Override
     public Guest generateRandomGuest(LocalDate seasonStart, LocalDate seasonEnd) {
-        return null;
+        long daysBetweenSeason = DAYS.between(seasonStart, seasonEnd);
+        LocalDate randomCheckInDate = randomDateInSeason(seasonStart, seasonEnd);
+        LocalDate randomCheckOutDate = randomDateInSeason(randomCheckInDate.plusDays(1), randomCheckInDate.plusDays(getRandomNumberOfDays()));
+        return new Guest(getRandomNames(), GuestType.randomGuestType(), randomCheckInDate, randomCheckOutDate);
     }
 
     @Override
