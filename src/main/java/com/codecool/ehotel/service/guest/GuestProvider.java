@@ -4,6 +4,7 @@ import com.codecool.ehotel.model.Guest;
 
 import java.time.LocalDate;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class GuestProvider implements GuestService{
 
@@ -80,6 +81,13 @@ public class GuestProvider implements GuestService{
             guests.add(generateRandomGuest(seasonStart, seasonEnd));
         }
         return guests;
+    }
+
+    public LocalDate randomDateInSeason(LocalDate seasonStart, LocalDate seasonEnd) {
+        long startDay = seasonStart.toEpochDay();
+        long endDay = seasonEnd.toEpochDay();
+        long randomDay = ThreadLocalRandom.current().nextLong(startDay, endDay);
+        return LocalDate.ofEpochDay(randomDay);
     }
 
 }

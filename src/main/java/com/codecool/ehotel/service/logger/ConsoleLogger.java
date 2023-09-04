@@ -1,18 +1,20 @@
 package com.codecool.ehotel.service.logger;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class ConsoleLogger implements Logger{
-
-    LocalDate currentDate = LocalDate.now();
     @Override
     public void logInfo(String message) {
-        System.out.println("[INFO] : " + currentDate + message);
+        logMessage(message, "INFO");
     }
 
     @Override
     public void logError(String message) {
-        System.out.println("[ERROR] : " + currentDate + message);
+        logMessage(message, "ERROR");
+    }
 
+    private void logMessage(String message, String type) {
+        String entry = "[" + LocalDateTime.now() + "] " + type + ": " + message;
+        System.out.println(entry);
     }
 }
