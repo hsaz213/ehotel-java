@@ -9,9 +9,9 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
-public class GuestProvider implements GuestService{
+public class GuestProvider implements GuestService {
 
-    private final List<String> firstNames = List.of(    "Jennifer",
+    private final List<String> firstNames = List.of("Jennifer",
             "Matthew",
             "Emily",
             "Michael",
@@ -62,12 +62,12 @@ public class GuestProvider implements GuestService{
         return firstName + " " + lastName;
     }
 
-    private int getRandomNumberOfDays(){
+    private int getRandomNumberOfDays() {
         Random random = new Random();
         int min = 1;
         int max = 7;
 
-        return random.nextInt(max + min) +min;
+        return random.nextInt(max + min) + min;
     }
 
     @Override
@@ -100,8 +100,23 @@ public class GuestProvider implements GuestService{
     public LocalDate randomDateInSeason(LocalDate seasonStart, LocalDate seasonEnd) {
         long startDay = seasonStart.toEpochDay();
         long endDay = seasonEnd.toEpochDay();
-        long randomDay = ThreadLocalRandom.current().nextLong(startDay, endDay);
+
+        // Ensure startDay is always less than endDay
+        if (startDay >= endDay) {
+            long temp = startDay;
+            startDay = endDay - 1; // swap and adjust
+            endDay = temp + 1;
+        }
+
+        long randomDay = ThreadLocalRandom.current().nextLong(startDay, endDay + 1);
         return LocalDate.ofEpochDay(randomDay);
+    }
+
+    public ArrayList<Guest> shuffleGuestList(Set<Guest> guestList) {
+        ArrayList<Guest> guestListArr = new ArrayList<>(guestList.size());
+        guestListArr.addAll(guestList);
+        Collections.shuffle(guestListArr);
+        return guestListArr;
     }
 
 }
