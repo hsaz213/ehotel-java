@@ -14,7 +14,7 @@ public record Buffet(List<Meal> meals) {
                 filteredMeals.add(meal);
             }
         }
-        filteredMeals.sort(Comparator.comparing(Meal::getTimeStamp).reversed());
+        filteredMeals.sort(Comparator.comparing(Meal::getTimeStamp));
         return filteredMeals;
     }
 

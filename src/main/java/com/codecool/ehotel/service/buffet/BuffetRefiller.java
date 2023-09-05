@@ -2,6 +2,7 @@ package com.codecool.ehotel.service.buffet;
 
 import com.codecool.ehotel.model.Buffet;
 import com.codecool.ehotel.model.Meal;
+import com.codecool.ehotel.model.MealType;
 
 import java.util.List;
 
@@ -12,5 +13,15 @@ public class BuffetRefiller implements BuffetService {
             buffet.addMeal(meal);
         }
         return buffet;
+    }
+
+    @Override
+    public boolean consumeFreshest(Buffet buffet, MealType mealType) {
+        List<Meal> filteredMeals = buffet.findPortions(mealType);
+        if (filteredMeals.size() > 0) {
+            filteredMeals.remove(0);
+            return true;
+        }
+        return false;
     }
 }
