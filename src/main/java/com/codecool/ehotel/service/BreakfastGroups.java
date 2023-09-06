@@ -29,6 +29,8 @@ public class BreakfastGroups {
 
         System.out.println(groupSplitIndexArr);
 
+        int numberOfCycles = 8;
+
         ArrayList<List<Guest>> listOfGroups = new ArrayList<List<Guest>>(8);
         for (int i = 0; i < 8; i++) {
             int subStartIndex = groupSplitIndexArr.get(i);

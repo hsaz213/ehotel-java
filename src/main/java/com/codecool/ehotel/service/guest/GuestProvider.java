@@ -11,49 +11,9 @@ import static java.time.temporal.ChronoUnit.DAYS;
 
 public class GuestProvider implements GuestService {
 
-    private final List<String> firstNames = List.of("Jennifer",
-            "Matthew",
-            "Emily",
-            "Michael",
-            "Sarah",
-            "David",
-            "Jessica",
-            "Daniel",
-            "Linda",
-            "James",
-            "Elizabeth",
-            "William",
-            "Amanda",
-            "John",
-            "Olivia",
-            "Richard",
-            "Sophia",
-            "Robert",
-            "Mia",
-            "Thomas");
+    private final List<String> firstNames = List.of("Jennifer", "Matthew", "Emily", "Michael", "Sarah", "David", "Jessica", "Daniel", "Linda", "James", "Elizabeth", "William", "Amanda", "John", "Olivia", "Richard", "Sophia", "Robert", "Mia", "Thomas");
 
-    private final List<String> lastNames = List.of(
-            "Smith",
-            "Johnson",
-            "Brown",
-            "Davis",
-            "Jones",
-            "Miller",
-            "Wilson",
-            "Moore",
-            "Taylor",
-            "Anderson",
-            "Jackson",
-            "Harris",
-            "Martin",
-            "Thompson",
-            "White",
-            "Hall",
-            "Thomas",
-            "Robinson",
-            "Lewis",
-            "Walker"
-    );
+    private final List<String> lastNames = List.of("Smith", "Johnson", "Brown", "Davis", "Jones", "Miller", "Wilson", "Moore", "Taylor", "Anderson", "Jackson", "Harris", "Martin", "Thompson", "White", "Hall", "Thomas", "Robinson", "Lewis", "Walker");
 
     private String getRandomNames() {
         Random random = new Random();
@@ -62,19 +22,23 @@ public class GuestProvider implements GuestService {
         return firstName + " " + lastName;
     }
 
-    private int getRandomNumberOfDays() {
+    private int getStayLengthInDays(LocalDate seasonStart, LocalDate seasonEnd) {
+        int seasonDuration = (int) (seasonEnd.toEpochDay() - seasonStart.toEpochDay());
+
         Random random = new Random();
         int min = 1;
         int max = 7;
-
+        if (seasonDuration < 7) {
+            max = seasonDuration;
+        }
         return random.nextInt(max + min) + min;
     }
 
     @Override
     public Guest generateRandomGuest(LocalDate seasonStart, LocalDate seasonEnd) {
         long daysBetweenSeason = DAYS.between(seasonStart, seasonEnd);
-        LocalDate randomCheckInDate = randomDateInSeason(seasonStart, seasonEnd);
-        LocalDate randomCheckOutDate = randomDateInSeason(randomCheckInDate.plusDays(1), randomCheckInDate.plusDays(getRandomNumberOfDays()));
+        LocalDate randomCheckOutDate = randomDateInSeason(seasonStart.plusDays(getStayLengthInDays(seasonStart, seasonEnd)), seasonEnd);
+        LocalDate randomCheckInDate = randomCheckOutDate.minusDays(getStayLengthInDays(seasonStart, seasonEnd));
         return new Guest(getRandomNames(), GuestType.randomGuestType(), randomCheckInDate, randomCheckOutDate);
     }
 

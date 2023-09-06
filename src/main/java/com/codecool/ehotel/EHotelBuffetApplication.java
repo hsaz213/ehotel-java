@@ -22,7 +22,7 @@ public class EHotelBuffetApplication {
         GuestProvider guestProvider = new GuestProvider();
 
         LocalDate seasonStart = LocalDate.of(2023, 6, 1);
-        LocalDate seasonEnd = LocalDate.of(2023, 9, 1);
+        LocalDate seasonEnd = LocalDate.of(2023, 9, 21);
         List<Guest> guests = guestProvider.generateGuests(10000, seasonStart, seasonEnd);
 
         // Get guests for today
