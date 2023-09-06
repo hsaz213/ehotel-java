@@ -6,9 +6,9 @@ import java.util.Comparator;
 import java.util.List;
 
 public record Buffet(List<Meal> meals) {
-    static List<Meal> filteredMeals = new ArrayList<>();
 
     public List<Meal> findPortions(MealType mealType) {
+        List<Meal> filteredMeals = new ArrayList<>();
         for (Meal meal : meals) {
             if (meal.getMealType().equals(mealType)) {
                 filteredMeals.add(meal);
@@ -24,6 +24,10 @@ public record Buffet(List<Meal> meals) {
 
     public void addMeal(Meal meal) {
         meals.add(meal);
+    }
+
+    public void removeMeal(Meal meal) {
+        meals.remove(meal);
     }
 
 }
