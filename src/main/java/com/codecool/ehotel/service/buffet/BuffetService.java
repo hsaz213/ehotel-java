@@ -10,4 +10,6 @@ public interface BuffetService {
     Buffet refill(Buffet buffet, List<Meal> meals);
 
     boolean consumeFreshest(Buffet buffet, MealType mealType);
+
+    int collectWaste(Buffet buffet);
 }

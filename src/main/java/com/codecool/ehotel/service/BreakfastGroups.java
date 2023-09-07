@@ -18,9 +18,8 @@ public class BreakfastGroups {
 
         ArrayList<Integer> groupSplitIndexArr = new ArrayList<>(8);
         int firstIndex = 0;
-        int lastIndex = guests.size();
         groupSplitIndexArr.add(firstIndex);
-        groupSplitIndexArr.add(lastIndex);
+        groupSplitIndexArr.add(guestCount);
         for (int i = 0; i < 7; i++) {
             int splitIndex = (int) floor(Math.random() * guestCount);
             groupSplitIndexArr.add(splitIndex);
@@ -32,7 +31,7 @@ public class BreakfastGroups {
         int numberOfCycles = 8;
 
         ArrayList<List<Guest>> listOfGroups = new ArrayList<List<Guest>>(8);
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < numberOfCycles; i++) {
             int subStartIndex = groupSplitIndexArr.get(i);
             int subEndIndex = groupSplitIndexArr.get(i + 1);
             listOfGroups.add(guestList.subList(subStartIndex, subEndIndex));

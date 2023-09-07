@@ -1,16 +1,14 @@
 package com.codecool.ehotel.model;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.Objects;
-
-import java.time.LocalTime;
 
 public class Meal {
     private MealType mealType;
     private int amount;
-    private LocalTime timeStamp;
+    private LocalDateTime timeStamp;
 
-    public Meal(MealType mealType, int amount, LocalTime timeStamp) {
+    public Meal(MealType mealType, int amount, LocalDateTime timeStamp) {
         this.mealType = mealType;
         this.amount = amount;
         this.timeStamp = timeStamp;
@@ -32,12 +30,12 @@ public class Meal {
         this.amount = amount;
     }
 
-    public LocalTime getTimeStamp() {
+    public LocalDateTime getTimeStamp() {
         return timeStamp;
     }
 
-    public void setTimeStamp(LocalTime timeStamp) {
-        this.timeStamp = timeStamp;
+    public void setTimeStamp(LocalDateTime timeStamp) {
+        this.timeStamp = LocalDateTime.from(timeStamp);
     }
 
     public void increaseAmount(int number) {
@@ -60,4 +58,14 @@ public class Meal {
     public int hashCode() {
         return Objects.hash(mealType, amount, timeStamp);
     }
+
+    @Override
+    public String toString() {
+        return "Meal{" +
+                "mealType=" + mealType +
+                ", amount=" + amount +
+                ", timeStamp=" + timeStamp +
+                '}';
+    }
+
 }
