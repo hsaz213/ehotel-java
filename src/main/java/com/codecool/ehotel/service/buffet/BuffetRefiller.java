@@ -15,13 +15,4 @@
 //        return buffet;
 //    }
 //
-//    @Override
-//    public boolean consumeFreshest(Buffet buffet, MealType mealType) {
-//        List<Meal> filteredMeals = buffet.findPortions(mealType);
-//        if (filteredMeals.size() > 0) {
-//            buffet.removeMeal(filteredMeals.get(0));
-//            return true;
-//        }
-//        return false;
-//    }
 //}
