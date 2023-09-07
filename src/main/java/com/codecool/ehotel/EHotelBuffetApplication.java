@@ -52,14 +52,29 @@ public class EHotelBuffetApplication {
 //        System.out.println(Buffet.findPortions(SCRAMBLED_EGGS));
 
 
-
-
         // Initialize meals and buffet
-        Meal scrambledEggs = new Meal(MealType.SCRAMBLED_EGGS, 5, LocalDateTime.now().minusMinutes(80)); // these should not be removed because they were added less than 90 minutes before ✅
-        Meal croissant = new Meal(MealType.CROISSANT, 2, LocalDateTime.now().minusMinutes(200)); // these should be removed because they were added more than 90 minutes before ✅
+        Meal scrambledEggs = new Meal(MealType.SCRAMBLED_EGGS, 10, LocalDateTime.now().minusMinutes(80)); // these should not be removed because they were added less than 90 minutes before ✅
+        Meal croissant = new Meal(MealType.CROISSANT, 10, LocalDateTime.now().minusMinutes(200)); // these should be removed because they were added more than 90 minutes before ✅
+
+
         List<Meal> meals = new ArrayList<>(Arrays.asList(scrambledEggs, croissant));
         Buffet buffet = new Buffet();
+
         buffet.setMeals(meals);
+
+        List<Meal> buffetMeals = buffet.getMeals();
+
+        Meal muffin = new Meal(MealType.MUFFIN, 10, LocalDateTime.now().minusMinutes(120)); // these should not be removed because they were added less than 90 minutes before ✅
+        Meal pancake = new Meal(MealType.PANCAKE, 10, LocalDateTime.now().minusMinutes(120)); // these should be removed because they were added more than 90 minutes before ✅
+
+
+        List<Meal> secondsMeals = new ArrayList<>(Arrays.asList(muffin, pancake));
+
+        System.out.println("👋 buffet meals:" + buffetMeals);
+
+        buffetMeals.addAll(secondsMeals);
+
+        System.out.println("👋✅🥸 buffet meals after second fill:" + buffetMeals);
 
         // Initialize service
         BuffetServiceImpl buffetService = new BuffetServiceImpl();
@@ -67,6 +82,7 @@ public class EHotelBuffetApplication {
         // Collect waste and print the cost
         int totalWasteCost = buffetService.collectWaste(buffet);
         System.out.println("cost of discarded meals: " + totalWasteCost);
+
 
     }
 }
