@@ -78,13 +78,15 @@ public class EHotelBuffetApplication {
 
         // Initialize service
         BuffetServiceImpl buffetService = new BuffetServiceImpl();
+//
+//        // Collect waste and print the cost
+//        int totalWasteCost = buffetService.collectWaste(buffet);
+//        System.out.println("cost of discarded meals: " + totalWasteCost);
 
-        // Collect waste and print the cost
-        int totalWasteCost = buffetService.collectWaste(buffet);
-        System.out.println("cost of discarded meals: " + totalWasteCost);
+//        buffetService.refill(buffet, buffetMeals);
 
-        buffetService.refill(buffet, buffetMeals);
 
+        buffetService.cycleManager(buffet, meals, MealType.CROISSANT);
 
     }
 }
