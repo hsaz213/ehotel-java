@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public record Buffet(List<Meal> meals) {
+public class Buffet {
+    private List<Meal> meals;
 
     public List<Meal> findPortions(MealType mealType) {
         List<Meal> filteredMeals = new ArrayList<>();
@@ -22,6 +23,10 @@ public record Buffet(List<Meal> meals) {
         return meals;
     }
 
+    public void setMeals(List<Meal> meals) {
+        this.meals = meals;
+    }
+
     public void addMeal(Meal meal) {
         meals.add(meal);
     }
@@ -29,5 +34,6 @@ public record Buffet(List<Meal> meals) {
     public void removeMeal(Meal meal) {
         meals.remove(meal);
     }
+
 
 }

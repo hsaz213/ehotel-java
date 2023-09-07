@@ -65,10 +65,9 @@ public class GuestProvider implements GuestService {
         long startDay = seasonStart.toEpochDay();
         long endDay = seasonEnd.toEpochDay();
 
-        // Ensure startDay is always less than endDay
         if (startDay >= endDay) {
             long temp = startDay;
-            startDay = endDay - 1; // swap and adjust
+            startDay = endDay - 1;
             endDay = temp + 1;
         }
 
