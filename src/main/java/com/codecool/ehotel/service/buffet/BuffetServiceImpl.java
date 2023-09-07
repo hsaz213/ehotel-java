@@ -38,8 +38,8 @@ public class BuffetServiceImpl implements BuffetService {
     public boolean consumeFreshest(Buffet buffet, MealType mealType) {
         List<Meal> filteredMeals = buffet.findPortions(mealType);
         if (!filteredMeals.isEmpty()) {
-            System.out.println("❌: " + filteredMeals.get(filteredMeals.size()-1));
-            buffet.removeMeal(filteredMeals.get(filteredMeals.size()-1));
+            System.out.println("❌: " + filteredMeals.get(filteredMeals.size() - 1));
+            buffet.removeMeal(filteredMeals.get(filteredMeals.size() - 1));
             return true;
         }
         return false;
