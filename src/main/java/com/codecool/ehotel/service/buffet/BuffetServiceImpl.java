@@ -5,8 +5,12 @@ import com.codecool.ehotel.model.Meal;
 import com.codecool.ehotel.model.MealDurability;
 import com.codecool.ehotel.model.MealType;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,9 +18,35 @@ public class BuffetServiceImpl implements BuffetService {
 
     @Override
     public Buffet refill(Buffet buffet, List<Meal> meals) {
-//        LocalDateTime
+        LocalTime midnight = LocalTime.MIDNIGHT;
+        LocalDate today = LocalDate.now(ZoneId.of("Europe/Berlin"));
+        LocalDateTime todayBreakfastStart = LocalDateTime.of(today, midnight).plusHours(6);
+        System.out.println("todays bf starts at: " + todayBreakfastStart);
+        LocalDateTime currentCycleStart;
+        int cycleLengthMinutes = 30;
+        int numOfCycles = 8;
+
+
+        List<Meal> buffetMeals = new ArrayList<>(buffet.getMeals());
+
+        for (int i = 0; i < numOfCycles; i++) {
+            currentCycleStart = todayBreakfastStart.plusMinutes(i * cycleLengthMinutes);
+            System.out.println("current cycle start: " + currentCycleStart);
+
+            for (Meal meal :
+                    meals) {
+                Meal newMeal = new Meal(meal.getMealType(), meal.getAmount(), currentCycleStart);
+                buffetMeals.add(newMeal);
+                System.out.println(meal);
+            }
+
+            System.out.println("🏆 refilled buffet meals: " + buffetMeals);
+        }
+        buffet.setMeals(buffetMeals);
+
         return buffet;
     }
+
 
     @Override
     public boolean consumeFreshest(Buffet buffet, MealType mealType) {
