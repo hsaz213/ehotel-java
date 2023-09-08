@@ -15,8 +15,9 @@ public class GuestProvider implements GuestService {
 
     private final List<String> lastNames = List.of("Smith", "Johnson", "Brown", "Davis", "Jones", "Miller", "Wilson", "Moore", "Taylor", "Anderson", "Jackson", "Harris", "Martin", "Thompson", "White", "Hall", "Thomas", "Robinson", "Lewis", "Walker");
 
+    Random random = new Random();
     private String getRandomNames() {
-        Random random = new Random();
+
         String firstName = firstNames.get(random.nextInt(firstNames.size()));
         String lastName = lastNames.get(random.nextInt(lastNames.size()));
         return firstName + " " + lastName;
@@ -25,7 +26,6 @@ public class GuestProvider implements GuestService {
     private int getStayLengthInDays(LocalDate seasonStart, LocalDate seasonEnd) {
         int seasonDuration = (int) (seasonEnd.toEpochDay() - seasonStart.toEpochDay());
 
-        Random random = new Random();
         int min = 1;
         int max = 7;
         if (seasonDuration < 7) {
@@ -76,8 +76,7 @@ public class GuestProvider implements GuestService {
     }
 
     public ArrayList<Guest> shuffleGuestList(Set<Guest> guestList) {
-        ArrayList<Guest> guestListArr = new ArrayList<>(guestList.size());
-        guestListArr.addAll(guestList);
+        ArrayList<Guest> guestListArr = new ArrayList<>(guestList);
         Collections.shuffle(guestListArr);
         return guestListArr;
     }
